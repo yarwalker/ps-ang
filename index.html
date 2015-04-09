@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Acme Product Management</title>
 
+    <!-- Style sheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+    <!--script type="text/javascript" src="js/bootstrap.min.js"></script-->
+
     <!-- Library Scripts -->
     <script src="js/angular.min.js"></script>
 
@@ -15,7 +20,10 @@
 
 </head>
 <body ng-app="productManagement">
-<!--table ng-init='products = [
+<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size: large">Product Lis</div>
+    <div class="panel-body">
+        <!--table ng-init='products = [
 {"productId": 1,
 "productName": "Leaf Rake",
 "productCode": "GDN-0011",
@@ -37,11 +45,11 @@
 "category": "toolbox",
 "tags": [ "tool" ],
 "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hamm"}]'-->
-<table ng-controller="ProductListCtrl as vm">
+        <table class="table" ng-controller="ProductListCtrl as vm">
     <thead>
         <tr>
             <!--th>Image</th-->
-            <th><button type="button" ng-click="vm.toggleImage()">{{ vm.showImage ? "Hide" : "Show" }} Image</button></th>
+            <th><button class="btn btn-primary" type="button" ng-click="vm.toggleImage()">{{ vm.showImage ? "Hide" : "Show" }} Image</button></th>
             <th>Product</th>
             <th>Code</th>
             <th>Available</th>
@@ -53,7 +61,7 @@
         <tr ng-repeat="product in vm.products">
             <td>
                 <!-- ng-show и ng-hide управляют только отображением,
-                ng-if управляет процессом получения данных (в этом случае картинок) --> 
+                ng-if управляет процессом получения данных (в этом случае картинок) -->
                 <img style="width: 50px; margin: 2px;"
 
                      ng-if="vm.showImage"
@@ -67,5 +75,7 @@
         </tr>
     </tbody>
 </table>
+    </div>
+</div>
 </body>
 </html>
