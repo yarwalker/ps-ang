@@ -1,19 +1,11 @@
-/**
- * Created by shabashov on 09.04.15.
- */
-(function () {
-    "use strict";
-    angular
-        .module("productManagement")
-        .controller("ProductListCtrl",
-                    ['productResource',
-                     ProductListCtrl]); // первый параметр - имя контроллера,
-        // 2-й - ссылка на функцию определяющую контроллер
+(function(){
+    'use strict';
 
-    function ProductListCtrl(productResourse) {
-        // this - определяет модель, кот. будет использоваться представлением view
-        var vm = this; // vm - view model
-        /*vm.products = [
+    var app = angular
+                .module('productResourceMock', ['ngMockE2E']);
+
+    app.run(function($httpBackend){
+        var products = [
             {"productId": 1,
                 "productName": "Leaf Rake",
                 "productCode": "GDN-0011",
@@ -35,16 +27,10 @@
                 "category": "toolbox",
                 "tags": [ "tool" ],
                 "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hamm"
-            }];*/
+            }];
 
-        productResourse.query(function(data){
-            vm.products = data;
-        });
+        var productUrl = '/api/products';
 
-        vm.showImage = false;
-
-        vm.toggleImage = function(){
-            vm.showImage = !vm.showImage;
-        }
-    }
+        $httpBackend.whenGET(productUrl).respond(products);
+    });
 }());
