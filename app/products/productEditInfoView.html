@@ -1,0 +1,30 @@
+<form action="" class="form-horizontal" name="productForm">
+    <fieldset>
+        <legend>Basic Product Information</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputProductName">Product Name</label>
+            <div class="col-md-4">
+                <input type="text" id="inputProductName" placeholder="Product Name"
+                    ng-model="vm.product.productName"
+                    class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputDescription">Description</label>
+            <div class="col-md-10">
+                <textarea id="inputDescription" placeholder="Description" rows="3"
+                    ng-model="vm.product.description"
+                    class="form-control" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="inputProductCode">Product Code</label>
+            <div class="col-md-4">
+                <input type="text" id="inputProductCode" placeholder="Product Code"
+                       ng-model="vm.product.productCode"
+                       ui-mask="AAA-****"
+                       class="form-control"/>
+            </div>
+        </div>
+    </fieldset>
+</form>
