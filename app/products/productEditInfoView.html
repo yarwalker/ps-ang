@@ -1,14 +1,71 @@
-<form action="" class="form-horizontal" name="productForm">
+<form action="" class="form-horizontal" name="productForm" novalidate="novalidate">
     <fieldset>
         <legend>Basic Product Information</legend>
-        <div class="form-group">
+        <div class="form-group"
+                ng-class="{'has-error': productForm.inputProductName.$invalid && productForm.inputProductName.$dirty}">
             <label class="col-md-2 control-label" for="inputProductName">Product Name</label>
             <div class="col-md-4">
-                <input type="text" id="inputProductName" placeholder="Product Name"
+                <input type="text" id="inputProductName" name="inputProductName" placeholder="Product Name (required)"
                     ng-model="vm.product.productName"
-                    class="form-control"/>
+                    class="form-control" required="required"
+                    ng-minlength="4"
+                    ng-maxlength="12" />
+            </div>
+            <!--span class="help-block has-error"
+                ng-show="productForm.inputProductName.$invalid &&
+                         productForm.inputProductName.$dirty"    >
+                Product name is required</span-->
+            <span class="help-block has-error">
+                <span ng-show="productForm.inputProductName.$error.required">
+                    Product name is required
+                </span>
+                <span ng-show="productForm.inputProductName.$error.minlength">
+                    Product name must be at least 4 characters in length.
+                </span>
+                <span ng-show="productForm.inputProductName.$error.maxlength">
+                    Product name cannot exceed 12 characters in length.
+                </span>
+            </span>
+        </div>
+        
+        <div class="form-group"
+             ng-class="{'has-error': productForm.inputProductCode.$invalid && productForm.inputProductCode.$dirty}">
+            <label class="col-md-2 control-label" for="inputProductCode">Product Code</label>
+            <div class="col-md-4">
+                <input type="text" id="inputProductCode"
+                       name="inputProductCode"
+                       ui-mask="AAA-**** (required)"
+                       ng-model="vm.product.productCode"
+                       class="form-control"
+                        required="required">
+            </div>
+            <span class="help-block has-error"
+                  ng-show="productForm.inputProductCode.$invalid &&
+                            productForm.inputProductCode.$dirty"    >
+                Product code is required</span>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label"
+                   for="inputAvailabilityDate">Availability</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input class="form-control"
+                           id="inputAvailabilityDate"
+                           type="text"
+                           datepicker-popup="MMM dd, yyyy "
+                           is-open="vm.opened"
+                           ng-model="vm.product.releaseDate"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default"
+                                ng-click="vm.open($event)">
+                            <i class="glyphicon glyphicon-calendar" />
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
+
         <div class="form-group">
             <label class="col-md-2 control-label" for="inputDescription">Description</label>
             <div class="col-md-10">
@@ -17,14 +74,32 @@
                     class="form-control" ></textarea>
             </div>
         </div>
+
         <div class="form-group">
-            <label class="col-md-2 control-label" for="inputProductCode">Product Code</label>
-            <div class="col-md-4">
-                <input type="text" id="inputProductCode" placeholder="Product Code"
-                       ng-model="vm.product.productCode"
-                       ui-mask="AAA-****"
-                       class="form-control"/>
+            <div class="col-md-4 col-md-offset-2">
+                    <span>
+                        <!--button class="btn btn-primary"
+                                style="width:80px;margin-right:10px"
+                                ng-click="vm.submit()"
+                                ng-disabled="productForm.$invalid">
+                            Save
+                        </button-->
+                        <button class="btn btn-primary"
+                                style="width:80px;margin-right:10px"
+                                ng-click="vm.submit(productForm.$valid)"
+                                >
+                            Save
+                        </button>
+                    </span>
+                    <span>
+                        <button class="btn btn-default"
+                                style="width:70px"
+                                ng-click="vm.cancel()">
+                            Cancel
+                        </button>
+                    </span>
             </div>
         </div>
+
     </fieldset>
 </form>
