@@ -4,14 +4,38 @@
     angular
         .module("productManagement")
         .controller("ProductEditCtrl",
-        ["product", "$state",
+        ["product", "$state", 'productService',
             ProductEditCtrl]);
 
 
-    function ProductEditCtrl(product, $state) {
+    function ProductEditCtrl(product, $state, productService) {
         var vm = this;
 
         vm.product = product;
+        vm.priceOption = 'percent';
+
+        // оформляем как функцию чтобы процент пересчитывался при каждом изменении цены или стоимости
+        vm.marginPercent = function(){
+            return productService.calculateMarginPercent(vm.product.price,
+                                                          vm.product.cost)
+        }
+
+        // calculate price based on a markup
+        vm.calculatePrice = function() {
+            var price = 0;
+
+            if(vm.priceOption == 'amount') {
+                price = productService
+                            .calculatePriceFromMarkupAmount(vm.product.cost, vm.product.markupAmount)
+            }
+
+            if(vm.priceOption == 'percent') {
+                price = productService
+                    .calculatePriceFromMarkupPercent(vm.product.cost, vm.product.markupPercent)
+            }
+
+            vm.product.price = price;
+        }
 
         if (vm.product && vm.product.productId) {
             vm.title = "Edit: " + vm.product.productName;
