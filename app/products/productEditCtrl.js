@@ -26,12 +26,12 @@
 
             if(vm.priceOption == 'amount') {
                 price = productService
-                            .calculatePriceFromMarkupAmount(vm.product.cost, vm.product.markupAmount)
+                            .calculatePriceFromMarkupAmount(vm.product.cost, vm.markupAmount)
             }
 
             if(vm.priceOption == 'percent') {
                 price = productService
-                    .calculatePriceFromMarkupPercent(vm.product.cost, vm.product.markupPercent)
+                    .calculatePriceFromMarkupPercent(vm.product.cost, vm.markupPercent)
             }
 
             vm.product.price = price;
